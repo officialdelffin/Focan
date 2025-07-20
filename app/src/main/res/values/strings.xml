@@ -1,0 +1,19 @@
+<resources>
+
+    <!-- Name app -->
+    <string name="app_name">Focan</string>
+
+    <!-- Timer Activity  -->
+
+    <string name="timer_titller_focus"><b>Focus</b></string>
+    "
+    <string name="timer_counter"><b>25:00</b></string>
+    "
+    <string name="timer_button_start"><b>Start</b></string>
+    "
+    <string name="timer_button_pause"><b>Pause</b></string>
+    "
+    <string name="timer_button_reset"><b>Resete</b></string>
+    "
+
+</resources>
