@@ -115,6 +115,7 @@ class TimerActivity : AppCompatActivity() {
 
             }
 
+            // When the time comes to zero :
             override fun onFinish() {
 
                 textCounter.text = "00:00"
@@ -132,10 +133,13 @@ class TimerActivity : AppCompatActivity() {
 
     private fun funcionCounterInterval() {
 
+        // Canceling if the sopwatch is running
         counterInterval?.cancel()
 
+        // Creating the object counter and defining the time and the time interval
         counterInterval = object : CountDownTimer( totalTimerMillisecondsInterval , 1000 ) {
 
+            // Updating every second
             override fun onTick(millisUntilFinished: Long) {
 
                 timeLeftMillisInterval = millisUntilFinished
@@ -149,6 +153,7 @@ class TimerActivity : AppCompatActivity() {
 
             }
 
+            // When the time comes to zero :
             override fun onFinish() {
 
                 textCounter.text = "00:00"
@@ -188,9 +193,9 @@ class TimerActivity : AppCompatActivity() {
 
     private fun funcionReseteInterval() {
 
-        counterInterval?.cancel()
-        timeLeftMillisInterval = totalTimerMillisecondsInterval
-        isRunning = false
+        counterInterval?.cancel()                                 // Canceling the stopwathc
+        timeLeftMillisInterval = totalTimerMillisecondsInterval   // Reseting the time
+        isRunning = false                                         // The stopwatxh is not running
 
         val minutes = ( timeLeftMillisInterval / 1000 ) / 60
         val seconds = ( timeLeftMillisInterval / 1000 ) % 60
