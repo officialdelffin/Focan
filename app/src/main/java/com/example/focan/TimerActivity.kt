@@ -1,5 +1,6 @@
 package com.example.focan
 
+// Imposts :
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.ImageView
@@ -12,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 
 class TimerActivity : AppCompatActivity() {
 
+    // Defining element types :
     lateinit var textCounter  : TextView
     lateinit var dotOne       : ImageView
     lateinit var dotTwo       : ImageView
@@ -20,8 +22,10 @@ class TimerActivity : AppCompatActivity() {
     lateinit var buttonPause  : AppCompatButton
     lateinit var buttonResete : AppCompatButton
 
-    private var totalTimerMilliseconds = 25 * 60 * 1000L
-    private var counter: CountDownTimer? = null
+    private var totalTimerMilliseconds = 25 * 60 * 1000L  // 25 minutes em milliseconds
+    private var counter: CountDownTimer? = null           // Creating a stopwatch
+    private var timeLeftMillis = totalTimerMilliseconds   // Amarzening the time left
+    private var isRunning = false                         // The stopwatch is not running
 
     override fun onCreate( savedInstanceState: Bundle? ) {
 
@@ -29,7 +33,10 @@ class TimerActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView( R.layout.activity_timer )
         startComponents()
-        buttonStart.setOnClickListener { funcionCounter() }
+
+        // Defining button clicks :
+        buttonStart.setOnClickListener { if ( !isRunning ) { funcionCounter() } }
+        buttonPause.setOnClickListener { funcionPause() }
 
         ViewCompat.setOnApplyWindowInsetsListener( findViewById( R.id.main ) ) { v, insets ->
             val systemBars = insets.getInsets( WindowInsetsCompat.Type.systemBars() )
@@ -40,6 +47,7 @@ class TimerActivity : AppCompatActivity() {
 
     private fun startComponents() {
 
+        // Starting elements :
         textCounter  = findViewById(R.id.textCounter)
         dotOne       = findViewById(R.id.dotOne)
         dotTwo       = findViewById(R.id.dotTwo)
@@ -52,11 +60,16 @@ class TimerActivity : AppCompatActivity() {
 
     private fun funcionCounter() {
 
+        // Canceling if the stopwatch is running :
         counter?.cancel()
 
-        counter = object : CountDownTimer( totalTimerMilliseconds, 1000 ) {
+        // Creating the object counter and defining the time and the time interval :
+        counter = object : CountDownTimer( timeLeftMillis , 1000 ) {
 
-            override fun onTick( millisUntilFinished: Long ) {
+            // Updating every second :
+            override fun onTick( millisUntilFinished : Long ) {
+
+                timeLeftMillis = millisUntilFinished
 
                 val minutes = ( millisUntilFinished / 1000 ) / 60
                 val seconds = ( millisUntilFinished / 1000 ) % 60
@@ -78,4 +91,12 @@ class TimerActivity : AppCompatActivity() {
         counter?.start()
 
     }
+
+    private fun funcionPause() {
+
+        counter?.cancel()  // Canceling the stopwatch
+        isRunning = false  // The stopwatch is not running
+
+    }
+
 }
