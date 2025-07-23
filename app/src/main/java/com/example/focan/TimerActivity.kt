@@ -37,6 +37,7 @@ class TimerActivity : AppCompatActivity() {
         // Defining button clicks :
         buttonStart.setOnClickListener { if ( !isRunning ) { funcionCounter() } }
         buttonPause.setOnClickListener { funcionPause() }
+        buttonResete.setOnClickListener { funcionResete() }
 
         ViewCompat.setOnApplyWindowInsetsListener( findViewById( R.id.main ) ) { v, insets ->
             val systemBars = insets.getInsets( WindowInsetsCompat.Type.systemBars() )
@@ -88,7 +89,7 @@ class TimerActivity : AppCompatActivity() {
 
         }
 
-        counter?.start()
+        counter?.start() // Starting the stopwatch
 
     }
 
@@ -96,6 +97,21 @@ class TimerActivity : AppCompatActivity() {
 
         counter?.cancel()  // Canceling the stopwatch
         isRunning = false  // The stopwatch is not running
+
+    }
+
+    private fun funcionResete() {
+
+        counter?.cancel()                         // Canceling the stopwatch
+        timeLeftMillis = totalTimerMilliseconds   // Resetting the time
+        isRunning = false                         // The stopwatch is not running
+
+        val minutes = (timeLeftMillis / 1000) / 60
+        val seconds = (timeLeftMillis / 1000) % 60
+        val formattedTime = String.format("%02d:%02d", minutes, seconds)
+
+        textCounter.text = formattedTime
+
 
     }
 
